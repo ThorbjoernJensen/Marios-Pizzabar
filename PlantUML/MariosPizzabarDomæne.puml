@@ -1,0 +1,48 @@
+@startuml
+
+title domæneModel
+left to right direction
+
+hide circle
+hide methods
+
+
+Class MenuKort{
+List<Pizza>
+}
+
+Class Pizza{
+nr
+navn
+ingredienser
+pris
+}
+
+Class OrderLine{
+pizzaNummer
+antal
+afhentningsTid
+bestillingsTId
+}
+
+Class Order{
+Array af orders
+
+}
+
+Class BestillingsKø{
+næsteLevering
+}
+
+Class OrderList{
+Array af ordre
+}
+
+MenuKort "1" -- "*" Pizza
+Pizza "*" -- "1" OrderLine
+
+Order "*" -- "1" BestillingsKø
+Order "*" -- "1" OrderList
+OrderLine -right- Order
+
+@enduml

@@ -1,0 +1,23 @@
+ordreliste;;;;;;;;;
+;;Orderlist;;;;;;;
+;;;;;optional;;;;
+;;OrderId;OrdreTidspunkt;Ønsket leveringstid;Leveringstidspunkt;pris;status;;MySQL -database - dele op i OrderId, hvor man så kan læse på hver ordreId hvad den indeholder?
+;;1;;;;;;;
+;;2;;;;;;;lav de to ark som er i MySql tutorial
+;;3;;;;;;;
+;;4;;;;;;;
+;;5;;;;;;;
+;;6;;;;;;;
+;;7;;;;;;;
+;;;;;;;;;
+;;;;;;;;;
+;;;;;;;;;
+;;OrderDetails;;;;;;;
+;;OrderId;(linjenr);pizzaNr;antal;;;;
+;;1;linje 1;;;;;;
+;;;linje 2;;;;;;
+;;;linje 3;;;;;;
+;;;linje 4;;;;;;
+;;2;linje 1;;;;;;
+;;;linje2;;;;;;
+;;3;linje 1;;;;;;

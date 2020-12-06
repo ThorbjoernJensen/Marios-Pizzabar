@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+
+Title use case diagram
+actor Alfonso as a
+actor Mario as m
+package MariosPizzabar{
+  usecase "se menu" as UC1
+  usecase "opret bestilling" as UC2
+  usecase "se bestillinger" as UC3
+  usecase "arkiver bestilling" as UC4
+  usecase "annuller bestilling" as UC5
+  usecase "se statistik" as UC6
+}
+a--> UC1
+a--> UC2
+a--> UC3
+a--> UC4
+a--> UC5
+m--> UC6
+
+@enduml
