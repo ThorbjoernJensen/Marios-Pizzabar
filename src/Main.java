@@ -22,10 +22,10 @@ public class Main {
                 case 2:
                     System.out.println("du har valgt: " + valg + ": indtast ordre.");
                     programRunning = true;
-                    Order order = new Order(orderList);
+                    Order order = new Order(orderList); //ved at have orderList som argument har vi mulighed for at trække på dens data, og dermed få en unik ordreId
                     String svar;
 
-//                    Laver et loop der gentager add af ordrelinjer indtil det stoppes af userinput
+//                    Laver et loop der gentager add af ordrelinjer indtil det stoppes af userinput, hvorefter ordren lukkes og stemples med tidspunkt.
                     boolean orderRunning = true;
                     while (orderRunning) {
                         int pizzaNummer = (getInt("Indtast pizzanummer: ") - 1);
@@ -35,10 +35,11 @@ public class Main {
 
                         System.out.println("du har valgt pizza nr. " + pizza.getNr() + ": " + pizza.getNavn());
                         int pizzaAntal = getInt("antal: ");
-                        OrderLine orderLine = new OrderLine(order, pizza, pizzaAntal);
+                        OrderLine orderLine = new OrderLine(order, pizza, pizzaAntal); //når denne orderLine instantieres får den også tildelt id via ordre-objektet.
                         System.out.println(pizzaAntal + " x " + pizza.getNavn() + " blev tilføjet.");
                         order.addOrderLine(orderLine);
-// her skal ordrelinjer gemmes til fil
+
+                        // her skal ordrelinjer gemmes til fil
                         orderLine.saveOrderlinesToFile();
 
                         svar = getString("ønsker du at tilføje pizzaer? j/n: ");

@@ -58,11 +58,22 @@ public class OrderList {
 
     public int generateOrderId() {
         if (orderList == null) {
-            return 1;
+            return 1; //hvis listen i forvejen er tom, så starter vi nummereringen fra nr. 1
         }
         return orderList.size() + 1;
+    }
 
 
+    public int generateOrderLineIdStartingPoint(){
+        if (orderList == null){
+            return 0;     //  skal det være et eller nul?
+        }
+
+        int orderLineId=0;
+        for (Order order: orderList){
+            orderLineId= orderLineId + order.getOrderLines().size();
+        }
+        return orderLineId;
     }
 
     @Override

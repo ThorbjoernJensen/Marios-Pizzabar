@@ -3,12 +3,13 @@ import java.util.Date;
 import java.util.List;
 
 public class Order implements Comparable<Order> {
+
     //    en klasse der rummer flere pizza x antal (svarer til en indkøbskurv) - og stempler med ordreinfo
     private int orderId;
     private List<OrderLine> orderLines;
+
     private OrderList orderlist;
     private int price;
-
 
     //    -1 så man kan teste om der er defineret et tidspunkt - og uden at fjerne muligheden for at kl. kunne være 0.
     private int afhentningstid = -1;
@@ -16,16 +17,15 @@ public class Order implements Comparable<Order> {
     private boolean leveret = false;
 
 
-    //    en constructor som tilføjer ordernr og som består af ordrelinjer (hvorfor er ordrelisten med som argument? for at få id med
+    //    en constructor som tilføjer ordernr. og som består af ordrelinjer (hvorfor er ordrelisten med som argument? for at få id med
+//    på den måde er det altid indlejret i den enkelte ordre hvilken ordreliste den tilhører. Og så kan vi trække på ordreListens data
+
     public Order(OrderList orderListeSomArgument) {
         this.orderLines = new ArrayList<>();
         this.ordreTidspunkt = new Date();
-//        behøver der at være et this på?
+        this.orderlist= orderListeSomArgument; //Det er via denne at vi har adgang til ordrelistens data, via ordre-objekt, når vi sender som argument.
         this.orderId = orderListeSomArgument.generateOrderId();
-
-
     }
-
 
     public int getPrice() {
         return price;
@@ -43,8 +43,45 @@ public class Order implements Comparable<Order> {
     public Date getOrdreTidspunkt() {
         return ordreTidspunkt;
     }
+
     public int getAfhentningstid() {
         return afhentningstid;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public OrderList getOrderlist() {
+        return orderlist;
+    }
+
+    public void setOrderlist(OrderList orderlist) {
+        this.orderlist = orderlist;
+    }
+
+    public void setOrdreTidspunkt(Date ordreTidspunkt) {
+        this.ordreTidspunkt = new Date();
+    }
+
+    public void setAfhentningstid(int afhentningstid) {
+        this.afhentningstid = afhentningstid;
+    }
+
+    public void setLeveret(boolean leveret) {
+        this.leveret = leveret;
+    }
+
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
+    }
+
+    public void addOrderLine(OrderLine orderLine) {
+        orderLines.add(orderLine);
     }
 
     public int calculatePrice() {
@@ -57,43 +94,6 @@ public class Order implements Comparable<Order> {
         return res;
     }
 
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-//    en constructor som vi vist slet ikke bruger
-//    public Order(List<OrderLine> orderLines, int afhentningstid, Date ordreTidspunkt) {
-//        this.orderLines = new ArrayList<>();
-//        this.afhentningstid = afhentningstid;
-//        this.ordreTidspunkt = new Date();
-//    }
-
-    public void setOrdreTidspunkt(Date ordreTidspunkt) {
-        this.ordreTidspunkt = new Date();
-    }
-
-
-    public void addOrderLine(OrderLine orderLine) {
-        orderLines.add(orderLine);
-    }
-
-    public List<OrderLine> getOrderLines() {
-        return orderLines;
-    }
-
-    public void setOrderLines(List<OrderLine> orderLines) {
-        this.orderLines = orderLines;
-    }
-
-
-    public void setAfhentningstid(int afhentningstid) {
-        this.afhentningstid = afhentningstid;
-    }
-
-    public void setLeveret(boolean leveret) {
-        this.leveret = leveret;
-    }
 
     @Override
     public String toString() {
@@ -116,7 +116,7 @@ public class Order implements Comparable<Order> {
         return "Ordre nr. " + orderId + ": " + "\n" + orderLineString +
 
 
-                "ordretidspunkt: " + ordreTidspunkt + "\n" + afhentningstidString +
+                "ordretidspunkt: " + ordreTidspunkt + ", " + afhentningstidString +
                 "\npris: " + price + " kr." +
                 "\n\n";
 
@@ -126,9 +126,6 @@ public class Order implements Comparable<Order> {
     public int compareTo(Order o) {
         return this.afhentningstid - o.afhentningstid;
     }
-
-
-
 
 
 }
