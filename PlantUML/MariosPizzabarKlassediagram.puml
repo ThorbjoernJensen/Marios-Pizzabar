@@ -23,20 +23,13 @@ pizza
 antal
 }
 
-
-
-
-
 Class Order{
 list<OrderLine>
 afhentningsTid
 bestillingsTId
 leveringsstatus
 orderId
-
 addOrderLine()
-
-
 }
 
 Class OrderList{
@@ -50,16 +43,16 @@ saveOrderList()
 }
 
 Class OrderQueue{
-Kø <!leveret Order>
- - kø fast leveringstid
- - kø flydende leveringstid
+Liste <!leveret Order>
+Liste fast leveringstid
+kø flydende leveringstid
 splitQueue()
 sortQueue()
 showQueue()
 }
 
 MenuKort "1" -- "*" Pizza
-Pizza "*" -- "1" OrderLine
+Pizza "1" -- "*" OrderLine
 
 OrderQueue "1" -down- "1" OrderList
 OrderLine "*" -right- "1" Order

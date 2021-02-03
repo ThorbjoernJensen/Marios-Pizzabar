@@ -1,12 +1,11 @@
 public class Pizza {
-
+//    vi vil gerne opnå at pizzaer kun kan tilgås via menukort
 
     private int nr;
     private String navn;
-    private String ingredienser; //man kunne også senere lave dette om til en arrayList og give mulighed for at ændre ingredienser
+    private String ingredienser;
     private int pris;
 
-//    vi vil gerne opnå at pizzaer kun kan tilgås via menukort
     public Pizza(int nr) {
         this.nr = nr;
     }
@@ -17,6 +16,7 @@ public class Pizza {
         this.ingredienser = ingredienser;
         this.pris = pris;
     }
+
     public int getNr() {
         return nr;
     }
@@ -51,9 +51,6 @@ public class Pizza {
 
     @Override
     public String toString() {
-        return "pizza " +
-                "nr. " + nr +
-                ": " + navn
-                ;
+        return "pizza " + "nr. " + nr + ": " + navn;
     }
 }

@@ -5,14 +5,12 @@ public class OrderLine {
     private Pizza pizza;
     private int antal;
     private int linjeNummer;
-//    generer en id der er unik for alle ordrer i ordreListen... 
+
+    //    Todo generer en id der er unik for alle ordrelinier i ordreListen...
     private int orderLineId;
 
-//    måske kunne man også generere vha en statisk metode.
-//    ordrelinje-objektet skal have en reference til ordre-objektet
+    //    ordrelinje-objektet skal have en reference til ordre-objektet for at
     private Order order;
-
-
 
     public OrderLine(Order order, Pizza pizza, int antal) {
         this.pizza = pizza;
@@ -21,8 +19,9 @@ public class OrderLine {
 
     }
 
-    private int generateOrderLineId(Order order){
-        return order.getOrderLines().size()+1;
+//    Den vil vel starte forfra, hver gang vi har en ny ordre
+    private int generateOrderLineId(Order order) {
+        return order.getOrderLines().size() + 1;
     }
 
     public Pizza getPizza() {
@@ -41,7 +40,7 @@ public class OrderLine {
         this.antal = antal;
     }
 
-//    todo lav en funktion der gemmer ordrelinjer i en fil som svarer til sql-øvelsesdatabase
+    //    todo lav en funktion der gemmer ordrelinjer i en fil som svarer til sql-øvelsesdatabase
     public void saveOrderlinesToFile() {
 
 
@@ -49,6 +48,6 @@ public class OrderLine {
 
     @Override
     public String toString() {
-        return "linje " + linjeNummer +": "+ pizza.toString() + ", antal = " + antal + "\n";
+        return "linje " + linjeNummer + ": " + pizza.toString() + ", antal = " + antal + "\n";
     }
 }

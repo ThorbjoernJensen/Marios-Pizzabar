@@ -12,15 +12,9 @@ public class Main {
         OrderList orderList = new OrderList();
         OrderQueue orderQueue = new OrderQueue(orderList);
 
-
-//        OrderLine orderLine = new OrderLine(new Pizza(1), 4);
-//        System.out.println(orderLine.toString());
-
         boolean programRunning = true;
         while (programRunning) {
             int valg = menu();
-
-
             switch (valg) {
                 case 1:
                     menuCard.showMenu();
@@ -31,12 +25,14 @@ public class Main {
                     Order order = new Order(orderList);
                     String svar;
 
-//                    Laver et loop der gentager add af ordrelinjer indtil det stoppes med userinput
+//                    Laver et loop der gentager add af ordrelinjer indtil det stoppes af userinput
                     boolean orderRunning = true;
                     while (orderRunning) {
                         int pizzaNummer = (getInt("Indtast pizzanummer: ") - 1);
                         Pizza pizza = menuCard.menuOkt20.get(pizzaNummer);
-                        //det kunne gøres mere sikkert ved at søge på pizza med nummer
+                        //det kunne gøres mere sikkert ved at søge på pizza med nummer. så skulle man lave et for each hvor man spurgte til om nr== nr
+                        // nu går vi i stedet ud fra at pizzaerne er ordnet i arrayet således at et står på plads nul, og at de ellers står i rækkefølge.
+
                         System.out.println("du har valgt pizza nr. " + pizza.getNr() + ": " + pizza.getNavn());
                         int pizzaAntal = getInt("antal: ");
                         OrderLine orderLine = new OrderLine(order, pizza, pizzaAntal);

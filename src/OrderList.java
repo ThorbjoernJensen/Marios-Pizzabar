@@ -12,7 +12,6 @@ public class OrderList {
     private List<Order> orderList;
     private OrderQueue orderQueue;
 
-
     public OrderList() {
         this.orderList = new ArrayList<>();
     }
@@ -21,7 +20,6 @@ public class OrderList {
 //    public void notifyOrder(OrderQueue orderQueue){
 //        orderQueue.getNewOrder();
 //         }
-
 
     public void addOrder(Order order, OrderQueue orderQueue) {
         orderList.add(order);
@@ -87,7 +85,6 @@ public class OrderList {
 //                printWriter.print(";");
 
     public void saveOrderlistToFile() {
-
         try (PrintWriter writer = new PrintWriter(new File("orderList.CSV"))) {
             writer.print("OrdreId");
             writer.print(";");
@@ -97,9 +94,7 @@ public class OrderList {
             writer.print(";");
             writer.println("Leveringsstatus");
 
-
             for (Order o : orderList) {
-
                 writer.print(o.getOrderId());
                 writer.print(";");
                 writer.print(o.getOrdreTidspunkt());
@@ -112,12 +107,9 @@ public class OrderList {
                 if (o.isLeveret() == false) {
                     writer.println("ikke-leveret");
                 }
-
             }
         } catch (FileNotFoundException e) {
             System.out.println("filen kunne ikke skrives");
         }
-
-
     }
 }

@@ -1,7 +1,7 @@
 @startuml
 
 title domæneModel
-left to right direction
+
 
 hide circle
 hide methods
@@ -19,30 +19,36 @@ pris
 }
 
 Class OrderLine{
-pizzaNummer
+Pizza
 antal
-afhentningsTid
-bestillingsTId
 }
 
 Class Order{
-Array af orders
+List af orderLine
+bestillingsTId
+afhentningsTid
+pris
+leveringsstatus
 
 }
 
-Class BestillingsKø{
-næsteLevering
+Class OrderQueue{
+Liste af leveret=false ordre
+sorteret i:
+Liste af fast leveringstidspunkt
+Liste uden fast leveringstidspunkt
 }
 
 Class OrderList{
-Array af ordre
+Liste af ordre
+
 }
 
-MenuKort "1" -- "*" Pizza
-Pizza "*" -- "1" OrderLine
+MenuKort "1" -right- "*" Pizza
+Pizza "1" -- "*" OrderLine
 
-Order "*" -- "1" BestillingsKø
+OrderLine "*"-right-"1" Order
 Order "*" -- "1" OrderList
-OrderLine -right- Order
+OrderList "*" -left- "1" OrderQueue
 
 @enduml

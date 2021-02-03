@@ -11,8 +11,10 @@ public class OrderQueue {
 // egentligt skulle de nok have hver deres klasse.
 
     List<Order> orderQueue;
-    OrderList orderList; // ikke så vi kan kalde funktionerne i orderList, men så vi har den data der er i ordreliste.
-//    når vi kun har brug for funktionerne behøver vi ikke at have det specifikke objekt med.
+    OrderList orderList;
+    // dette objekt er med ikke så vi kan kalde funktionerne i OrderList, men så vi har den data der er i ordreliste-objektet.
+//    når vi kun har brug for funktionerne behøver vi ikke at have det specifikke objekt med,
+//    men her har vi brug for dataen i orderList. og så skal den specifikke ordreliste sendes med som argument.
 
     //    2 sorteringer af orderQueue
     List<Order> orderQueueFixedtime = new ArrayList<>();

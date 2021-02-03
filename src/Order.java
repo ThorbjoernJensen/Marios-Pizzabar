@@ -16,7 +16,7 @@ public class Order implements Comparable<Order> {
     private boolean leveret = false;
 
 
-    //    en constructor som tilføjer ordernr
+    //    en constructor som tilføjer ordernr og som består af ordrelinjer (hvorfor er ordrelisten med som argument? for at få id med
     public Order(OrderList orderListeSomArgument) {
         this.orderLines = new ArrayList<>();
         this.ordreTidspunkt = new Date();
