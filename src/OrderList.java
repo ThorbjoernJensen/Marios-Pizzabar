@@ -14,12 +14,8 @@ public class OrderList {
 
     public OrderList() {
         this.orderList = new ArrayList<>();
+        this.orderQueue= new OrderQueue();
     }
-
-//    skal vi have køen som argument?
-//    public void notifyOrder(OrderQueue orderQueue){
-//        orderQueue.getNewOrder();
-//         }
 
     public void addOrder(Order order, OrderQueue orderQueue) {
         orderList.add(order);

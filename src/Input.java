@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Input {
@@ -45,5 +46,24 @@ public class Input {
         }
     }
 
+    public static void generateOrders(MenuCard menuCard, OrderList orderList, int antalOrdrer) {
+//        generer antalOrdrer tilfældige ordrer med mellem 1 og 5 ordrelinjer og tilfældige pizzaer (uden tid)
+        Random random = new Random();
 
-}
+        for (int i = 0; i < antalOrdrer; i++) {
+            Order order = new Order(orderList);
+
+            for (int j = 0; j < random.nextInt(5) + 1; j++) {
+                Pizza pizza = menuCard.menuOkt20.get(random.nextInt(menuCard.menuOkt20.size()));
+                int antal = random.nextInt(3) + 1;
+                OrderLine orderLine = new OrderLine(order, pizza, antal);
+                order.addOrderLine(orderLine);
+
+            }
+            orderList.addOrder(order);
+
+
+        }
+
+
+    }
