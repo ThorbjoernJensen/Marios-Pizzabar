@@ -1,5 +1,4 @@
 OrdreId;Ordretidspunkt;Pris;Leveringsstatus
-1;Fri Feb 05 16:16:57 CET 2021;60;ikke-leveret
-2;Fri Feb 05 16:17:14 CET 2021;215;ikke-leveret
-3;Fri Feb 05 16:18:11 CET 2021;129;ikke-leveret
-4;Fri Feb 05 16:18:52 CET 2021;318;ikke-leveret
+1;Fri Feb 05 23:49:37 CET 2021;60;ikke-leveret
+2;Fri Feb 05 23:49:42 CET 2021;192;leveret
+3;Fri Feb 05 23:49:56 CET 2021;231;ikke-leveret

@@ -17,7 +17,6 @@ public class OrderQueue {
 
     public OrderQueue() {
         this.orderQueue = new ArrayList<>();
-//        this.orderList = orderList;
         this.orderQueueFixedtime = new ArrayList<>();
         this.orderQueueNoTimeLimit = new ArrayList<>();
     }
@@ -40,7 +39,7 @@ public class OrderQueue {
 
     public void handleNewOrder(Order order) {// svarer til en update
         orderQueue.add(order);
-        splitOrderQueue();
+        splitOrderQueue(order);
         sortOrderQueues();
     }
 
@@ -51,23 +50,18 @@ public class OrderQueue {
 //        det gør tilsyneladende ikke noget at man remover et objekt der ikke er i listen. Ellers kunne man betinge remove med (if list.contains(order))
     }
 
+    public void splitOrderQueue(Order order) {
+        if (order.getAfhentningstid() == -1) {
+            orderQueueNoTimeLimit.add(order);
+        }
 
-    // en metode der tilføjerer den ny i henholdsvis fast tid og ikke-fast leveringstid
-    public void splitOrderQueue() {
-        for (Order o : orderQueue) {
-            if (o.getAfhentningstid() == -1) {
-                orderQueueNoTimeLimit.add(o);
-            }
-            if (o.getAfhentningstid() != -1) { //den vil kun være forskellig fra -1 hvis den aktivt er blevet ændret.
-                orderQueueFixedtime.add(o);
-            }
+        if (order.getAfhentningstid() != -1) { //den vil kun være forskellig fra -1 hvis den aktivt er blevet ændret.
+            orderQueueFixedtime.add(order);
         }
     }
 
-
     private void sortOrderQueues() {
         Collections.sort(orderQueueFixedtime);
-
     }
 
     @Override

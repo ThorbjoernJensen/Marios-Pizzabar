@@ -17,7 +17,7 @@ public class OrderList {
 
     public OrderList() {
         this.orderList = new ArrayList<>();
-        this.orderQueue= new OrderQueue();
+        this.orderQueue = new OrderQueue();
 
     }
 
@@ -25,8 +25,8 @@ public class OrderList {
         return orderQueue;
     }
 
-    public void notify(Order order){
-       orderQueue.update(order);
+    public void notify(Order order) {
+        orderQueue.update(order);
     }
 
     public void addOrder(Order order) {
@@ -38,15 +38,13 @@ public class OrderList {
     // sæt order.leveret = true og fjern ordre fra orderqueue
 //    public void deliverOrder(int ordreValg, OrderQueue oQ) { //som vi har lavet det nu, så bliver ordreList instantieret med et ordrekø-objekt
     public void deliverOrder(int ordreValg) {
-
-        int i = 0;
         if (!orderList.isEmpty()) {
             System.out.println("listen er ikke tom");
-            for (Order order : orderList) {
 
-                if (orderList.get(i).getOrderId() == ordreValg) {
+            for (Order order : orderList) {
+                if (order.getOrderId() == ordreValg) {
                     System.out.println("så er der bid");
-                    orderList.get(i).setLeveret(true);
+                    order.setLeveret(true);
                     notify(order);
                     System.out.println("Ordren blev fjernet fra køen og registreret som leveret.\n");
                     return;
@@ -55,11 +53,6 @@ public class OrderList {
             System.out.println("din indtastning svarede ikke til et ordreNr");
         }
     }
-//    public void deliverOrder(Order order) {
-////        Det skal fremsøges på ordrenummer fra bruger input
-//        order.setLeveret(true);
-//        orderQueue.removeOrder(order);
-
 
     public int generateOrderId() {
         if (orderList == null) {
@@ -69,18 +62,18 @@ public class OrderList {
     }
 
 
-    public int generateOrderLineIdStartingPoint(){
-        if (orderList == null){
+    public int generateOrderLineIdStartingPoint() {
+        if (orderList == null) {
             return 0;     //  skal det være et eller nul?
         }
-
-        int orderLineId=0;
-        for (Order order: orderList){
-            orderLineId= orderLineId + order.getOrderLines().size();
+        int orderLineId = 0;
+        for (Order order : orderList) {
+            orderLineId = orderLineId + order.getOrderLines().size();
         }
         return orderLineId;
     }
 
+//    todo lad ordrestatus fremgå af ordrelisten
     @Override
     public String toString() {
         String orderListtext = "";
