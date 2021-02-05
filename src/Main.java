@@ -10,7 +10,9 @@ public class Main {
         menuCard.readMenuFromFile();
 
         OrderList orderList = new OrderList();
-        OrderQueue orderQueue = new OrderQueue(orderList);
+//        OrderQueue orderQueue = new OrderQueue(orderList); //så er der to forskellige referencer til samme objekt- nej der er to forskellige objekter med samme input af data.
+
+
 
         boolean programRunning = true;
         while (programRunning) {
@@ -60,11 +62,12 @@ public class Main {
 
 // beregn pris
                     order.setPrice(order.calculatePrice());
-                    orderList.addOrder(order, orderQueue);
+                    orderList.addOrder(order);
                     System.out.println("Ordren blev gemt" + "\n");
 
 // gem ordre i en CSV fil
                     orderList.saveOrderlistToFile();
+
                     break;
 
                 case 3:
@@ -76,13 +79,13 @@ public class Main {
                     System.out.println("Liste over ordrer der ikke er leverede: ");// = orderQueue
 
                 case 5:
-                    System.out.println(orderQueue.toString());
+                    System.out.println(orderList.getOrderQueue().toString());
                     int ordreValg;
                     ordreValg = Input.getInt("Hvilken ordre vil du fjerne? indtast ordrenummer: ");
 
 //                    tilgå den ordre der har ordrenummeret ordreValg i ordreListen og set
 
-                    orderList.deliverOrder(ordreValg, orderQueue);
+                    orderList.deliverOrder(ordreValg);//bedre at lade ordrequeue være observer der ser ændringer og ikke har hele ordrelisten.
                     orderList.saveOrderlistToFile();
 //                    todo tilføj leveringstidspunkt til ordreliste
                     break;
@@ -91,7 +94,7 @@ public class Main {
 //                    lever ordre: fjern ordre fra orderQueue-listen. sæt leveret=true i orderList.
                 case 7:
 
-                    System.out.println(orderQueue.toString());
+                    System.out.println(orderList.getOrderQueue().toString());
                     break;
 
                 case 8:

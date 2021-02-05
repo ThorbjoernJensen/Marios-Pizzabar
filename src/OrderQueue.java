@@ -3,8 +3,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class OrderQueue {
-//    observer af Orderlist. alle ændringer i orderlist bliver meldt til OrderQueue
-//    indeholder en liste af de ordre der har leveret = false
+//    observer af Orderlist. alle ændringer i orderlist bliver via update meldt til OrderQueue
+//    indeholder en liste af de ordrer der har leveret = false
 
     // skal sortere på tid (altså de første skal stå øverst - men dem med tilføjede tidspunkter skal stå allerøverst
     // de skal også sorteres. måske skal de have hver deres liste. en med fast leveringstidspunkt og en med "hurtigst muligt"
@@ -20,13 +20,34 @@ public class OrderQueue {
     List<Order> orderQueueFixedtime = new ArrayList<>();
     List<Order> orderQueueNoTimeLimit = new ArrayList<>();
 
+//    det kunne også bare være en display funktion af orderqueue der kører alle ordrer igennem.
+
 
     public OrderQueue(OrderList orderList) {
         this.orderQueue = new ArrayList<>();
         this.orderList = orderList;
+
+
     }
 
-    public void handleNewOrder(Order order) {
+
+    public void update(Order order) { //ordren er allerede mættet med al den data vi behøver. vi behøver måske ikke orderList objekt
+//        enten skal ordren tilføjes eller også skal den sættes til leveret.
+        boolean allReadyInQueue = false;
+        for (Order o : orderQueue) {
+            if (o.getOrderId() == order.getOrderId()) {
+                allReadyInQueue = true;
+                deliverOrder(order);
+                return;//kan man godt komme ud af en funktion sådan?
+            }
+        }
+        if (!allReadyInQueue){
+            handleNewOrder(order);
+        }
+
+    }
+
+    public void handleNewOrder(Order order) {// svarer til en update
         orderQueue.add(order);
         splitOrderQueue(order);
         sortOrderQueues();

@@ -10,20 +10,36 @@ public class OrderList {
 //    arkiv af orders - svarer til ordrebog
 
     private List<Order> orderList;
+
+    public OrderQueue getOrderQueue() {
+        return orderQueue;
+    }
+
     private OrderQueue orderQueue;
+    private Order order; //måske ikke nødvendig
 
     public OrderList() {
         this.orderList = new ArrayList<>();
-        this.orderQueue= new OrderQueue();
+        this.orderQueue= new OrderQueue(this);
+        System.out.println("orderqueue instantieret fra orderlist"+orderQueue.hashCode());
+
+
     }
 
-    public void addOrder(Order order, OrderQueue orderQueue) {
+    public void notify(Order order){
+       orderQueue.update(order);
+
+    }
+
+    public void addOrder(Order order) {
         orderList.add(order);
         orderQueue.handleNewOrder(order);
     }
 
     // sæt order.leveret = true og fjern ordre fra orderqueue
-    public void deliverOrder(int ordreValg, OrderQueue oQ) {
+//    public void deliverOrder(int ordreValg, OrderQueue oQ) { //som vi har lavet det nu, så bliver ordreList instantieret med et ordrekø-objekt
+    public void deliverOrder(int ordreValg) {
+
         int i = 0;
         if (!orderList.isEmpty()) {
             System.out.println("listen er ikke tom");
@@ -34,8 +50,8 @@ public class OrderList {
                     System.out.println("så er der bid");
 
                     orderList.get(i).setLeveret(true);
-//                    vi har ikke instantieret - eller sendt ordrekøen med som argument.
-                    oQ.deliverOrder(o);
+
+                    orderQueue.deliverOrder(o);
                     System.out.println("Ordren blev fjernet fra køen og registreret som leveret.\n");
 
                     return;
