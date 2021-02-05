@@ -11,30 +11,29 @@ public class OrderList {
 
     private List<Order> orderList;
 
+
+    private OrderQueue orderQueue;
+
+
+    public OrderList() {
+        this.orderList = new ArrayList<>();
+        this.orderQueue= new OrderQueue();
+
+    }
+
     public OrderQueue getOrderQueue() {
         return orderQueue;
     }
 
-    private OrderQueue orderQueue;
-    private Order order; //måske ikke nødvendig
-
-    public OrderList() {
-        this.orderList = new ArrayList<>();
-        this.orderQueue= new OrderQueue(this);
-        System.out.println("orderqueue instantieret fra orderlist"+orderQueue.hashCode());
-
-
-    }
-
     public void notify(Order order){
        orderQueue.update(order);
-
     }
 
     public void addOrder(Order order) {
         orderList.add(order);
-        orderQueue.handleNewOrder(order);
+        notify(order);
     }
+
 
     // sæt order.leveret = true og fjern ordre fra orderqueue
 //    public void deliverOrder(int ordreValg, OrderQueue oQ) { //som vi har lavet det nu, så bliver ordreList instantieret med et ordrekø-objekt
@@ -43,24 +42,18 @@ public class OrderList {
         int i = 0;
         if (!orderList.isEmpty()) {
             System.out.println("listen er ikke tom");
-            for (Order o : orderList) {
+            for (Order order : orderList) {
 
                 if (orderList.get(i).getOrderId() == ordreValg) {
-
                     System.out.println("så er der bid");
-
                     orderList.get(i).setLeveret(true);
-
-                    orderQueue.deliverOrder(o);
+                    notify(order);
                     System.out.println("Ordren blev fjernet fra køen og registreret som leveret.\n");
-
                     return;
                 }
             }
             System.out.println("din indtastning svarede ikke til et ordreNr");
-
         }
-
     }
 //    public void deliverOrder(Order order) {
 ////        Det skal fremsøges på ordrenummer fra bruger input

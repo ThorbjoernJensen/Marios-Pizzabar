@@ -4,44 +4,35 @@ import java.util.List;
 
 public class OrderQueue {
 //    observer af Orderlist. alle ændringer i orderlist bliver via update meldt til OrderQueue
-//    indeholder en liste af de ordrer der har leveret = false
-
-    // skal sortere på tid (altså de første skal stå øverst - men dem med tilføjede tidspunkter skal stå allerøverst
-    // de skal også sorteres. måske skal de have hver deres liste. en med fast leveringstidspunkt og en med "hurtigst muligt"
-// egentligt skulle de nok have hver deres klasse.
+//    Listen orderQueue indeholder de ordrer fra orderList der har leveret = false
 
     List<Order> orderQueue;
     OrderList orderList;
-    // dette objekt er med ikke så vi kan kalde funktionerne i OrderList, men så vi har den data der er i ordreliste-objektet.
-//    når vi kun har brug for funktionerne behøver vi ikke at have det specifikke objekt med,
-//    men her har vi brug for dataen i orderList. og så skal den specifikke ordreliste sendes med som argument.
 
-    //    2 sorteringer af orderQueue
-    List<Order> orderQueueFixedtime = new ArrayList<>();
-    List<Order> orderQueueNoTimeLimit = new ArrayList<>();
+    List<Order> orderQueueFixedtime;
+    List<Order> orderQueueNoTimeLimit;
 
 //    det kunne også bare være en display funktion af orderqueue der kører alle ordrer igennem.
 
 
-    public OrderQueue(OrderList orderList) {
+    public OrderQueue() {
         this.orderQueue = new ArrayList<>();
-        this.orderList = orderList;
-
-
+//        this.orderList = orderList;
+        this.orderQueueFixedtime = new ArrayList<>();
+        this.orderQueueNoTimeLimit = new ArrayList<>();
     }
 
 
-    public void update(Order order) { //ordren er allerede mættet med al den data vi behøver. vi behøver måske ikke orderList objekt
-//        enten skal ordren tilføjes eller også skal den sættes til leveret.
+    public void update(Order order) { //ordren er allerede mættet med al den data vi behøver: enten skal ordren tilføjes eller også skal den sættes til leveret.
         boolean allReadyInQueue = false;
         for (Order o : orderQueue) {
             if (o.getOrderId() == order.getOrderId()) {
                 allReadyInQueue = true;
                 deliverOrder(order);
-                return;//kan man godt komme ud af en funktion sådan?
+//                return;//kan man godt komme ud af en funktion sådan?
             }
         }
-        if (!allReadyInQueue){
+        if (!allReadyInQueue) {
             handleNewOrder(order);
         }
 
@@ -49,17 +40,30 @@ public class OrderQueue {
 
     public void handleNewOrder(Order order) {// svarer til en update
         orderQueue.add(order);
-        splitOrderQueue(order);
+        splitOrderQueue();
         sortOrderQueues();
     }
 
-    //    fjerner ordren fra køen og arrangerer de to sorteringer igen
     public void deliverOrder(Order order) {
         orderQueue.remove(order);
-//        det gør tilsyneladende ikke noget at man remover et objekt der ikke er i listen.
         orderQueueFixedtime.remove(order);
         orderQueueNoTimeLimit.remove(order);
+//        det gør tilsyneladende ikke noget at man remover et objekt der ikke er i listen. Ellers kunne man betinge remove med (if list.contains(order))
     }
+
+
+    // en metode der tilføjerer den ny i henholdsvis fast tid og ikke-fast leveringstid
+    public void splitOrderQueue() {
+        for (Order o : orderQueue) {
+            if (o.getAfhentningstid() == -1) {
+                orderQueueNoTimeLimit.add(o);
+            }
+            if (o.getAfhentningstid() != -1) { //den vil kun være forskellig fra -1 hvis den aktivt er blevet ændret.
+                orderQueueFixedtime.add(o);
+            }
+        }
+    }
+
 
     private void sortOrderQueues() {
         Collections.sort(orderQueueFixedtime);
@@ -93,28 +97,10 @@ public class OrderQueue {
                 "Ordrer med fast leveringstidspunkt: \n" + stringFixedTime + "\n\n\n" +
                 "Ordrer uden fast leveringstidspunkt: \n" + stringFloatingTime + "\n\n";
     }
-
-
-    // en metode der adder til den tidsfixederede kø hvis den ikke er leveret
-    public void splitOrderQueue(Order o) {
-//        for (Order o : orderQueue) {
-//            vi skal kun have ordre med i vores kø som ikke er leverede
-//            måske er det overflødigt, da de altid er ikke-leverede når de addes
-        if (o.isLeveret() == false) {
-            if (o.getAfhentningstid() == -1) {
-                orderQueueNoTimeLimit.add(o);
-            }
-            if (o.getAfhentningstid() != -1) {
-                orderQueueFixedtime.add(o);
-            }
-        }
-    }
-
-
 }
 
 
-//måske skal vi alligevel bruge observerpattern når vi har 2 køer- vi har 2 kø-lister.
-// men det er vel samlet i et kø- objekt. men man kunne lave 2 kø-objekter ligesom med orderLines.
-//    kunne man lave et interface.
+
+
+
 
